@@ -54,6 +54,7 @@ class Compiler
             ->ignoreVCS(true)
             ->exclude('Tests')
             ->in(__DIR__ . '/../vendor/symfony/console')
+            ->in(__DIR__ . '/../vendor/symfony/polyfill-mbstring')
             ->in(__DIR__ . '/../vendor/guzzlehttp/guzzle/src/')
             ->in(__DIR__ . '/../vendor/guzzlehttp/ringphp/src/')
             ->in(__DIR__ . '/../vendor/guzzlehttp/streams/src/')
@@ -76,6 +77,8 @@ class Compiler
         $phar->stopBuffering();
 
         $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../LICENSE'), false);
+
+        chmod($pharFile, 0775);
 
         unset($phar);
     }
